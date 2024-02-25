@@ -17,6 +17,7 @@ func Run(db *gorm.DB, redis *redis.Client) {
 	api := router.Group("/api/v1")
 
 	routes.SetupShortenerRoutes(api, db, redis)
+	routes.SetupPizzaRoutes(api, db, redis)
 
 	router.Run(":" + port)
 }
