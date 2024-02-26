@@ -13,7 +13,7 @@ import (
 )
 
 func SetupPizzaRoutes(r *gin.RouterGroup, db *gorm.DB, redis *redis.Client) {
-	routeShortener := r.Group("/pizza")
+	routePizza := r.Group("/pizza")
 
 	// menu
 	menuRepository := repository.NewMenu(db, redis)
@@ -25,6 +25,6 @@ func SetupPizzaRoutes(r *gin.RouterGroup, db *gorm.DB, redis *redis.Client) {
 	orderRepository := repository.NewOrder(db, redis)
 	orderService := order.NewService(orderRepository, chefRepository)
 
-	shortenerHandler := handler.NewPizza(menuService, chefService, orderService)
-	shortenerHandler.Mount(routeShortener)
+	pizzaHandler := handler.NewPizza(menuService, chefService, orderService)
+	pizzaHandler.Mount(routePizza)
 }
